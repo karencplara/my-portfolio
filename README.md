@@ -1,2 +1,3 @@
 # my-portfolio
-Back-End em nodejs 
+# install dependencies
+yarn
