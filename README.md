@@ -5,4 +5,7 @@
 # install dependencies
 yarn
 
+# serve
+yarn dev
+
 
