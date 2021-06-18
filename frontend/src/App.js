@@ -1,13 +1,18 @@
 
+import React from 'react';
+
+//Global Style
+import GlobalStyle from './components/GlobalStyle';
+
+//components
+import AboutUs from './pages/AboutUs';
 function App() {
   return (
     <div>
-      Bem vindo
+      <GlobalStyle/>
+      <AboutUs />
     </div>
   );
 }
-
-// adc yarn add http-proxy-middleware
-// adc npm install concurrently --save-dev
 
 export default App;
