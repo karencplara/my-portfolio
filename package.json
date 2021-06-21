@@ -20,7 +20,7 @@
     "slug": "^5.0.1"
   },
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"
