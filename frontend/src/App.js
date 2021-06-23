@@ -10,12 +10,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AboutUs from './pages/AboutUs';
 import Portfolio from './pages/Portfolio';
 import ContactMe from './pages/ContactMe';
+import Nav from './components/Nav';
 
 function App() {
   return (
     <div>
       <GlobalStyle/>
-      <BrowserRouter>
+      <Nav />
       <Switch>
         <Route exact path="/">
           <AboutUs />
@@ -27,7 +28,6 @@ function App() {
            <ContactMe/>
         </Route>
       </Switch>
-      </BrowserRouter>
     </div>
   );
 }

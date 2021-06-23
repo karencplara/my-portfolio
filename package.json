@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "backend": "nodemon server.js",
-    "frontend": "cd frontend && yarn start",
+    "frontend": "yarn start --prefix frontend",
     "dev": "concurrently \"yarn backend\" \"yarn frontend\" ",
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install -prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +21,7 @@
     "slug": "^5.0.1"
   },
   "engines": {
-    "node": "14.x"
+    "node": "10.x"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"
