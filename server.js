@@ -7,6 +7,7 @@ const api = require('./backend/routes');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
 
 app.use('/api', api);
 

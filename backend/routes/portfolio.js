@@ -4,16 +4,15 @@ const Portfolio = require('../models/Portfolio');
 router.get('/', async (req, res) => {
  try{
     const portfolio = await Portfolio.find()
-
     res.json({
-        success: true,
-        data: portfolio
+      success: true,
+      data: portfolio
     })
  } catch(err) {
-     res.json({
-         success: false,
-         message: err
-     })
+    res.json({
+      success: false,
+      message: err
+    })
  }
 });
 
@@ -37,12 +36,13 @@ router.get('/:slug', async (req,res) => {
 router.patch('/:slug', async(req,res) => {
   try{ 
    const updatePorfolio = await Portfolio.updateOne({
-     slug: req.params.slug
+    slug: req.params.slug
    },
    {
     $set: {
       title: req.body.title,
-      description: req.body.description 
+      description: req.body.description,
+	  image: req.body.image,
     }
    })
    res.json({
@@ -60,7 +60,9 @@ router.patch('/:slug', async(req,res) => {
 router.post('/', async (req,res) => {
   const portfolio = new Portfolio({
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+	  slug: req.body.slug,
+	  image: req.body.image,
   });
 
   try {

@@ -1,7 +1,9 @@
 const router = require('express').Router();
-const portfolio = require('./portfolio');
 
 require('../db/mongoConnection');
+
+const portfolio = require('./portfolio');
+
 
 router.get('/', (req, res) => {
   res.json({
@@ -10,6 +12,6 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use("/portfolio", portfolio)
+router.use('/portfolio', portfolio)
 
 module.exports = router;

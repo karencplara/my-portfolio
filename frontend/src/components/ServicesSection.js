@@ -42,14 +42,12 @@ const ServiceDescription = styled(Description)`
 `;
 
 const Cards = styled.div`
-  background: red;
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
 `;
 
 const Card = styled.div`
-  background: green;
   padding: 0.5rem;
   flex-basis: 20rem;
   .icon{
