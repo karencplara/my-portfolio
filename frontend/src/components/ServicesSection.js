@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { faGithubSquare } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { About, Description, Image } from '../styles';
 
 const ServicesSection = () => {

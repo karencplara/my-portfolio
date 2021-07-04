@@ -42,7 +42,9 @@ router.patch('/:slug', async(req,res) => {
     $set: {
       title: req.body.title,
       description: req.body.description,
+      longDescription: req.body.description,
 	  image: req.body.image,
+	  technologies: req.body.technologies,
     }
    })
    res.json({
@@ -59,10 +61,12 @@ router.patch('/:slug', async(req,res) => {
 
 router.post('/', async (req,res) => {
   const portfolio = new Portfolio({
-      title: req.body.title,
-      description: req.body.description,
-	  slug: req.body.slug,
-	  image: req.body.image,
+	title: req.body.title,
+	description: req.body.description,
+	longDescription: req.body.longDescription,
+	slug: req.body.slug,
+	image: req.body.image,
+	technologies: req.body.technologies,
   });
 
   try {

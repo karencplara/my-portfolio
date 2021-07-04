@@ -2,19 +2,24 @@ import React from 'react';
 
 import { About, Description, Image } from '../styles';
 
+import { motion } from 'framer-motion';
+import { titleAnimation, fade, photoAnimation } from '../animation';
+
 const AboutSection = () => {
   return(
     <About>
       <Description>
-        <h2>Meu nome</h2>
-        <h2>Minha profissão</h2>
-        <p>
+        <motion.h2 variants={titleAnimation}>Meu nome</motion.h2>
+        <motion.h2 variants={titleAnimation}>Minha profissão</motion.h2>
+        <motion.p variants={fade}>
           Lorem ipsum dolor sit amet.
-        </p>
+        </motion.p>
         <button>Contact Me</button>
       </Description>
       <Image>
-        <img src="http://lorempixel.com/400/200/" />
+		<motion.div variants={photoAnimation}>
+		   <img src="http://lorempixel.com/400/200/" />
+		</motion.div>
       </Image>
     </About>
   )

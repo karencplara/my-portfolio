@@ -2,11 +2,13 @@ import React from 'react';
 
 import * as moment from 'moment'
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Card = ({project}) => {
     return (
       <>
         <StyledCard>
+          <Link to={`/portfolio/${project.slug}`}>
             <Content>
                 <Image src={project.image} />
                 <Info>
@@ -15,6 +17,7 @@ const Card = ({project}) => {
                     <p>{project.description}</p>
                 </Info>
             </Content>
+          </Link>
         </StyledCard>
       </>
     )
@@ -28,6 +31,9 @@ const StyledCard = styled.div`
   border-radius: 1rem;
   cursor: pointer;
   overflow: hidden;
+  a{
+    text-decoration: none;
+  }
 `;
 
 const Content = styled.div`
