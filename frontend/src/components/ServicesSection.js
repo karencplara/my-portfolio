@@ -5,9 +5,18 @@ import { faGithubSquare } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { About, Description, Image } from '../styles';
 
+import { scrollReveal } from '../animation';
+import { useScroll } from '../hooks/useScroll';
+
 const ServicesSection = () => {
+	const [element,controls] = useScroll();
     return (
-       <Services>
+		<Services 
+			variants={scrollReveal}
+			animate={controls}
+			initial='hidden'
+			ref={element}
+		>
            <Image>
                <img src="https://www.lojavirtual.com.br/wp-content/uploads/2017/09/produtos-servi%C3%A7os.png"/>
            </Image>
@@ -23,7 +32,7 @@ const ServicesSection = () => {
                </Card>
              </Cards>
            </ServiceDescription>
-       </Services>
+        </Services>
     )
 }
 

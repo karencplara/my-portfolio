@@ -78,6 +78,7 @@ const Detail = styled.div`
 	min-height: 80vh;
 	background: white;
 	position: absolute;
+	border-radius: 1rem;
 	left: 10%;
 	top: 25%;
 	margin-bottom: 10%;
