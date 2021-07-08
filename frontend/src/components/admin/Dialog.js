@@ -2,13 +2,14 @@ import React from 'react';
 
 import { Modal, Button } from 'react-bootstrap';
 
-const Dialog = ({show, setShow, currentAction}) => {
+const Dialog = ({show, setShow, currentAction, children}) => {
     return(
         <Modal
             show={show}
             onHide={() => setShow(false)}
             backdrop="static"
             keyboard={false}
+            size="lg"
         >
             <Modal.Header closeButton>
                 <Modal.Title>
@@ -16,7 +17,7 @@ const Dialog = ({show, setShow, currentAction}) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Are you sure want to delete?
+                {children}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => setShow(false)}>Close</Button>

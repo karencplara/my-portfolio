@@ -1,44 +1,64 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 
-import { Table, Button, Image } from 'react-bootstrap';
+import { Table, Button, Image, Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import { useApi } from '../../hooks/useApi';
 import Dialog from './Dialog';
+import PortfolioForm from './PortfolioForm';
 
 const PortfolioList = () => {
-    const [action, setAction] = useState({
+    const [title, setTitle] = useState();
+    const [shortDescription, setShortDescription] = useState();
+    const [longDescription, setLongDescription] = useState();
+    const [image, setImage] = useState();
+    const [slug, setSlug] = useState();
+    const [tech, setTech] = useState();
+
+    const [action] = useState({
         del: {
             header: 'Confirm Delete?',
             btnVariant: 'danger',
-            btnLabel: 'Confirm'
+            btnLabel: 'Confirm',
+            showBody: true,
+            body: 'Are you sure want to delete it?'
         },
         edit: {
             header: 'Edit Portfolio',
             btnVariant: 'primary',
-            btnLabel: 'Save'
+            btnLabel: 'Save',
+            showBody: false,
         },
         add: {
             header: 'Add new Portfolio',
             btnVariant: 'primary',
-            btnLabel: 'Save'
+            btnLabel: 'Save',
+            showBody: false,
         }
     });
     const [currentAction, setCurrentAction] = useState({
         header: '',
         btnVariant: '',
-        btnLabel: ''
+        btnLabel: '',
+        body: '',
     });
     const [show, setShow] = useState(false);
     const { data } = useApi('portfolio');
 
-    const handleShow = (slug, action) => {
+    const handleShow = (portfolio, action) => {
        setCurrentAction(action);
        setShow(true);
+       setTitle(portfolio.title);
+       setShortDescription(portfolio.description);
+       setLongDescription(portfolio.longDescription);
+       setImage(portfolio.image);
+       setSlug(portfolio.slug);
+       setTech(portfolio.technologies);
     }
     return(
-        <div>
+        <Container>
+            <Button variant="primary" size="lg" onClick={() => handleShow(null, action.add)}>Add New</Button>
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
@@ -56,8 +76,8 @@ const PortfolioList = () => {
                                 <td>{item.title}</td>
                                 <td>{moment(item.createdAt).format('MMM-YYYY')}</td>
                                 <td>
-                                    <Button variant="info">Edit</Button>
-                                    <Button variant="danger" onClick={() => handleShow(item.slug, action.del)}>Delete</Button>
+                                    <Button variant="info" onClick={() => handleShow(item, action.edit)}>Edit</Button>
+                                    <Button variant="danger" onClick={() => handleShow(item, action.del)}>Delete</Button>
                                 </td>
                             </tr>
                         )
@@ -68,8 +88,25 @@ const PortfolioList = () => {
                 show={show} 
                 setShow={setShow} 
                 currentAction={currentAction}
-            />
-        </div>
+            >
+                {currentAction.showBody && currentAction.body}
+                {!currentAction.showBody && (
+                    <PortfolioForm 
+                        title={title} 
+                        setTitle={setTitle} 
+                        shortDescription={shortDescription}
+                        setShortDescription={setShortDescription}
+                        longDescription={longDescription}
+                        setLongDescription={setLongDescription}
+                        image={image}
+                        setImage={setImage}
+                        slug={slug}
+                        tech={tech}
+                        setTech={setTech}
+                    />
+                )}
+            </Dialog>
+        </Container>
     )
 }
 
