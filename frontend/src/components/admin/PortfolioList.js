@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { useApi } from '../../hooks/useApi';
 import Dialog from './Dialog';
 import PortfolioForm from './PortfolioForm';
+import { deleteItem, editItem } from '../../services/api';
 
 const PortfolioList = () => {
     const [title, setTitle] = useState();
@@ -16,25 +17,39 @@ const PortfolioList = () => {
     const [slug, setSlug] = useState();
     const [tech, setTech] = useState();
 
+    const handleDel = (slug) => {
+        deleteItem(slug);
+        
+    }
+    const handleAdd = () => {
+
+    }
+    const handleEdit = (slug) => {
+        editItem(slug);
+    }
+
     const [action] = useState({
         del: {
             header: 'Confirm Delete?',
             btnVariant: 'danger',
             btnLabel: 'Confirm',
             showBody: true,
-            body: 'Are you sure want to delete it?'
+            body: 'Are you sure want to delete it?',
+            callback: handleDel
         },
         edit: {
             header: 'Edit Portfolio',
             btnVariant: 'primary',
             btnLabel: 'Save',
             showBody: false,
+            callback: handleEdit
         },
         add: {
             header: 'Add new Portfolio',
             btnVariant: 'primary',
             btnLabel: 'Save',
             showBody: false,
+            callback: handleAdd
         }
     });
     const [currentAction, setCurrentAction] = useState({
@@ -49,12 +64,12 @@ const PortfolioList = () => {
     const handleShow = (portfolio, action) => {
        setCurrentAction(action);
        setShow(true);
-       setTitle(portfolio.title);
-       setShortDescription(portfolio.description);
-       setLongDescription(portfolio.longDescription);
-       setImage(portfolio.image);
-       setSlug(portfolio.slug);
-       setTech(portfolio.technologies);
+       setTitle(portfolio?.title || '');
+       setShortDescription(portfolio?.description || '');
+       setLongDescription(portfolio?.longDescription || '');
+       setImage(portfolio?.image || '');
+       setSlug(portfolio?.slug || '');
+       setTech(portfolio?.technologies || []);
     }
     return(
         <Container>
@@ -71,7 +86,7 @@ const PortfolioList = () => {
                 <tbody>
                     {data?.data?.map(item => {
                         return (
-                            <tr>
+                            <tr key={item.slug}>
                                 <td><Logo src={item.image} thumbnail /></td>
                                 <td>{item.title}</td>
                                 <td>{moment(item.createdAt).format('MMM-YYYY')}</td>
@@ -88,6 +103,7 @@ const PortfolioList = () => {
                 show={show} 
                 setShow={setShow} 
                 currentAction={currentAction}
+                slug={slug}
             >
                 {currentAction.showBody && currentAction.body}
                 {!currentAction.showBody && (

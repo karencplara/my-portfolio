@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Form, Container, CardColumns, Card, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const PortfolioForm = ({title, setTitle, shortDescription, setShortDescription,longDescription,setLongDescription,image,setImage,slug,tech, setTech}) => {
+    const [type,setType] = useState('');
+    const [icon,setIcon] = useState('');
+    const [label, setLabel] = useState('');
     const handleRemoveItem = (id) => {
         const newTech = tech.filter(el => el._id !== id);
         setTech(newTech);
+    }
+
+    const handleSaveAddItem = () => {
+        const newId = Math.random().toString(36).substring(7);
+        const newTech = {
+            iconType: type,
+            icon,label,
+            _id: newId
+        }
+        setTech([...tech, newTech]);
+    
     }
     return(
         <Container>
@@ -49,7 +63,7 @@ const PortfolioForm = ({title, setTitle, shortDescription, setShortDescription,l
                 {
                     tech?.map(technology => {
                         return(
-                            <Card>
+                            <Card key={technology._id}>
                                 <Card.Body>
                                     <Card.Text>
                                         <FontAwesomeIcon icon={[technology.iconType, technology.icon]} size='3x' /> {technology.label}
@@ -75,20 +89,26 @@ const PortfolioForm = ({title, setTitle, shortDescription, setShortDescription,l
                     <Col xs="auto">
                         <Form.Control 
                             placeholder="Type: fab"
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
                         />
                     </Col>
                     <Col xs="auto">
                         <Form.Control 
                             placeholder="Icon: github..."
+                            value={icon}
+                            onChange={(e) => setIcon(e.target.value)}
                         />
                     </Col> 
                     <Col xs="auto">
                         <Form.Control 
                             placeholder="Label: GitHub..."
+                            value={label}
+                            onChange={(e) => setLabel(e.target.value)}
                         />
                     </Col>
                     <Col xs="auto">
-                        <Button className="mb-2">Add</Button>
+                        <Button className="mb-2" onClick={handleSaveAddItem}>Add</Button>
                     </Col>
                 </Form.Row>
             </Form>

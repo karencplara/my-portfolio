@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Modal, Button } from 'react-bootstrap';
 
-const Dialog = ({show, setShow, currentAction, children}) => {
+const Dialog = ({show, setShow, currentAction, slug, children}) => {
+    const handleAction = () => {
+        currentAction.callback(slug)
+        setShow(false);
+    }
     return(
         <Modal
             show={show}
@@ -10,10 +14,11 @@ const Dialog = ({show, setShow, currentAction, children}) => {
             backdrop="static"
             keyboard={false}
             size="lg"
+            animation={false}
         >
             <Modal.Header closeButton>
                 <Modal.Title>
-                   {currentAction.header}
+                   {currentAction.header} {slug}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -21,7 +26,7 @@ const Dialog = ({show, setShow, currentAction, children}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => setShow(false)}>Close</Button>
-                <Button variant={currentAction.btnVariant} onClick={() => setShow(false)}>{currentAction.btnLabel}</Button>
+                <Button variant={currentAction.btnVariant} onClick={() => setShow(handleAction)}>{currentAction.btnLabel}</Button>
             </Modal.Footer>
         </Modal>
     )
