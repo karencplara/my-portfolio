@@ -15,6 +15,7 @@ import Portfolio from './pages/Portfolio';
 import ContactMe from './pages/ContactMe';
 import Nav from './components/Nav';
 import Admin from './pages/Admin';
+import { SignupForm, LoginForm } from './components/auth/Authentication';
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,8 @@ function App() {
         <Route path={['/portfolio:id', '/portfolio']} component={Portfolio}/>
         <Route path="/contact" component={ContactMe} />
 		<Route path="/admin" component={Admin} />
+		<Route path="/signup" component={SignupForm} />
+		<Route path="/login" component={LoginForm} />
       </Switch>
     </div>
   );

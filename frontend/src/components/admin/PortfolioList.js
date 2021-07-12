@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useApi } from '../../hooks/useApi';
 import Dialog from './Dialog';
 import PortfolioForm from './PortfolioForm';
-import { deleteItem, editItem } from '../../services/api';
+import { deleteItem, editItem, addItem } from '../../services/api';
 
 const PortfolioList = () => {
     const [title, setTitle] = useState();
@@ -21,11 +21,12 @@ const PortfolioList = () => {
         deleteItem(slug);
         
     }
-    const handleAdd = () => {
+    const handleAdd = (slug, data) => {
+        addPortfolioItem(data);
 
     }
-    const handleEdit = (slug) => {
-        editItem(slug);
+    const handleEdit = (slug, data) => {
+        editPortfolio(slug, data);
     }
 
     const [action] = useState({
@@ -70,6 +71,36 @@ const PortfolioList = () => {
        setImage(portfolio?.image || '');
        setSlug(portfolio?.slug || '');
        setTech(portfolio?.technologies || []);
+    }
+
+    const addPortfolioItem = (data) => {
+        const tech = data.tech.map(i => {
+            delete i._id;
+            return i;
+        })
+        const newPortfolioItem = {
+            title: data.title, 
+            description: data.shortDescription,
+            longDescription: data.longDescription,
+            image: data.image,
+            technologies: tech
+        }
+        addItem(newPortfolioItem);
+    }
+
+    const editPortfolio = (slug, data) => {
+        const tech = data.tech.map(i => {
+            delete i._id;
+            return i;
+        })
+        const newPortfolioItem = {
+            title: data.title, 
+            description: data.shortDescription,
+            longDescription: data.longDescription,
+            image: data.image,
+            technologies: tech
+        }
+        editItem(slug, newPortfolioItem);
     }
     return(
         <Container>

@@ -3,8 +3,12 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Link } from 'react-router-dom'
+import { LogoutButton } from './auth/Authentication'
+import Userfront from "@userfront/react";
 
 const Nav = () => {
+	Userfront.init('xbr4x4bw');
+
     return (
         <StyledNav>
             <h1><Link to='/'>Logo</Link></h1>
@@ -12,6 +16,15 @@ const Nav = () => {
                 <li><Link to='/'>About me</Link></li>
                 <li><Link to='/portfolio'>Portfolio</Link></li>
                 <li><Link to='/contact'>Contact Me</Link></li>
+                {
+				  !Userfront.accessToken() && (
+					<>
+						<li><Link to='/login'>Login</Link></li>
+						<li><Link to='/signup'>Signup</Link></li>
+					</>
+				  )
+                }
+				{Userfront.accessToken() && <li><LogoutButton /></li>}
             </ul>
         </StyledNav>
     )
@@ -33,7 +46,7 @@ const StyledNav = styled.nav`
     list-style: none;
   }
   li {
-    padding-left: 10rem;
+    padding-left: 5rem;
   }
   a {
     color: #fff;

@@ -13,6 +13,20 @@ export const deleteItem = (slug) => {
         .catch(e => e)
 }
 
-export const editItem = (slug) => {
+export const editItem = (slug, {title, description, longDescription, image, technologies}) => {
+    axios
+        .patch(`api/portfolio/${slug}`, {
+            title, description, longDescription, image, technologies
+        })
+        .then(res => res)
+        .catch(e => e)
+}
 
+export const addItem = ({title, description, longDescription, image, technologies}) => {
+    axios
+        .post('api/portfolio', {
+            title, description, longDescription, image, technologies
+        })
+        .then(res => res)
+        .catch(e => e)
 }
